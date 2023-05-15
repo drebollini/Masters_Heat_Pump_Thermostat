@@ -10,7 +10,6 @@ coef_JSON = coef_file.read()
 coef_file.close()
 coef = json.loads(coef_JSON)
 
-###NOTA BENE: heater power reduced for realism?)
 
 #constants
 power = coef['q_in'] #heater power/W
@@ -20,13 +19,16 @@ k1 = coef['k1']
 k2 = coef['k2']
 
 #Thermostat
-thermostat_target = 20
-minimum_time_on = 15 #minimum time on in intervals
+thermostat_target = 21.5
+thermostat_range = 0.5
+thermostat_target_max = thermostat_target + thermostat_range/2
+thermostat_target_min = thermostat_target - thermostat_range/2
+minimum_time_on = 60*15 #minimum time on in seconds
 
 #boundaries
 n = 24*60*60 #24 hours in sec
-dt = 60 #interval time in seconds
-h = int(n/60) #no. of intervals
+dt = 1 #interval time in seconds
+h = int(n/dt) #no. of intervals
 
 #heat ODE
 def heat_ODE(T, k1, k2, T_out, q_in):
@@ -40,16 +42,32 @@ def heat_equ(T, dt, k1, k2, T_out, q_in):
 temp = np.zeros(h+1)
 temp[0] = T_start
 heating = np.zeros(h+1)
+heating_track = 0
 for k in range(0, h):
     temp[k+1] = heat_equ(temp[k], dt, k1, k2, T_out, power*heating[k])
-    if temp[k] < thermostat_target:
-        heating[k+1:k+(minimum_time_on+1)] = 1
+    if temp[k] < thermostat_target_min:
+        heating[k+1] = 1
+        heating_track = 1
+    if temp[k] > thermostat_target_min:
+        if heating_track == 1:
+            heating[k+1] = 1
+        if heating_track == 0:
+            heating[k+1] = 0
+    if temp[k] > thermostat_target_max:
+        heating[k+1] = 0
+        heating_track = 0
 
 plt.plot(temp)
 plt.ylim(18, 23)
-plt.xlabel('time (sec)')
-plt.ylabel('temp (deg)')
+xlim = np.arange(0, 60*60*28, 60*60*4)
+plt.xticks(xlim, ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'])
+plt.xlabel('time')
+plt.ylabel('temp (deg C)')
 plt.show()
 
 plt.plot(heating)
+xlim = np.arange(0, 60*60*28, 60*60*4)
+plt.xticks(xlim, ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'])
+plt.xlabel('time (sec)')
+plt.ylabel('power (bool)')
 plt.show()

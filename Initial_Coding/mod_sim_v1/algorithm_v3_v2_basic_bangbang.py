@@ -27,8 +27,8 @@ minimum_time_on = 60*15 #minimum time on in seconds
 
 #boundaries
 n = 24*60*60 #24 hours in sec
-dt = 60 #interval time in seconds
-h = int(n/60) #no. of intervals
+dt = 1 #interval time in seconds
+h = int(n/dt) #no. of intervals
 
 #heat ODE
 def heat_ODE(T, k1, k2, T_out, q_in):
@@ -58,10 +58,16 @@ for k in range(0, h):
         heating_track = 0
 
 plt.plot(temp)
-plt.ylim(15, 25)
-plt.xlabel('time (sec)')
-plt.ylabel('temp (deg)')
+plt.ylim(18, 23)
+xlim = np.arange(0, 60*60*28, 60*60*4)
+plt.xticks(xlim, ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'])
+plt.xlabel('time')
+plt.ylabel('temp (deg C)')
 plt.show()
 
 plt.plot(heating)
+xlim = np.arange(0, 60*60*28, 60*60*4)
+plt.xticks(xlim, ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'])
+plt.xlabel('time (sec)')
+plt.ylabel('power (bool)')
 plt.show()

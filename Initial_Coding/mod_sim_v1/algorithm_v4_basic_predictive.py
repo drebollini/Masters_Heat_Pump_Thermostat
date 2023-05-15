@@ -20,11 +20,11 @@ k2 = coef['k2']
 
 #boundaries
 n = 24*60*60 #24 hours in sec
-dt = 60 #interval time in seconds
+dt = 1 #interval time in seconds
 h = int(n/dt) #no. of intervals
 
 #Thermostat
-thermostat_target = 20 #thermostat target at end of boundary
+thermostat_target = 21.5 #thermostat target at end of boundary
 
 #heat ODE
 def heat_ODE(T, k1, k2, T_out, q_in):
@@ -67,10 +67,16 @@ for k in range(0, h):
     temp[k+1] = heat_equ(temp[k], dt, k1, k2, T_out, power*heating[k])
 
 plt.plot(temp)
-plt.ylim(15, 25)
-plt.xlabel('time (sec)')
-plt.ylabel('temp (deg)')
+plt.ylim(18, 23)
+xlim = np.arange(0, 60*60*28, 60*60*4)
+plt.xticks(xlim, ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'])
+plt.xlabel('time')
+plt.ylabel('temp (deg C)')
 plt.show()
 
 plt.plot(heating)
+xlim = np.arange(0, 60*60*28, 60*60*4)
+plt.xticks(xlim, ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'])
+plt.xlabel('time (sec)')
+plt.ylabel('power (bool)')
 plt.show()

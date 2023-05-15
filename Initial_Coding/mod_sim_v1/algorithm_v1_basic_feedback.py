@@ -20,7 +20,7 @@ k1 = coef['k1']
 k2 = coef['k2']
 
 #Thermostat
-thermostat_target = 21.1
+thermostat_target = 20
 
 #boundaries
 n = 24*60*60 #24 hours in sec
@@ -48,7 +48,7 @@ for k in range(0, h):
     temp[k+1] = heat_equ(temp[k], dt, k1, k2, T_out, power*heating[k])
 
 plt.plot(temp)
-plt.ylim(15, 25)
+plt.ylim(18, 23)
 plt.xlabel('time (sec)')
 plt.ylabel('temp (deg)')
 plt.show()
