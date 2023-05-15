@@ -3,7 +3,7 @@ import json
 import time
 import pandas as pd
 import matplotlib.pyplot as plt
-plt.style.use('seaborn-poster')
+
 
 coef_file = open("thermal_coefs.json", "r")
 coef_JSON = coef_file.read()
