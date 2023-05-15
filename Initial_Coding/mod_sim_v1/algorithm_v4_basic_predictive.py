@@ -5,7 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 plt.style.use('seaborn-poster')
 
-coef_file = open("themal_coefs.json", "r")
+coef_file = open("thermal_coefs.json", "r")
 coef_JSON = coef_file.read()
 coef_file.close()
 coef = json.loads(coef_JSON)

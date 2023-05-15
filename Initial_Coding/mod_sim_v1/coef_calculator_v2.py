@@ -119,6 +119,6 @@ import json
 
 themal_coefs = {"k1":k1, "k2":k2, "q_in":q_in}
 coef_str = json.dumps(themal_coefs)
-coef_file = open("themal_coefs.json", "w")
+coef_file = open("thermal_coefs.json", "w")
 coef_file.write(coef_str)
 coef_file.close()
