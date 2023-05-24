@@ -5,7 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-coef_file = open("thermal_coefs.json", "r")
+coef_file = open(r"Initial_Coding\thermal_coefs.json", "r")
 coef_JSON = coef_file.read()
 coef_file.close()
 coef = json.loads(coef_JSON)

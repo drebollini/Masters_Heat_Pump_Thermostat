@@ -4,7 +4,7 @@ import time
 import pandas as pd
 import matplotlib.pyplot as plt
 
-coef_file = open("thermal_coefs.json", "r")
+coef_file = open(r"Initial_Coding\thermal_coefs.json", "r")
 coef_JSON = coef_file.read()
 coef_file.close()
 coef = json.loads(coef_JSON)
@@ -34,10 +34,15 @@ for k in range(0, h):
 
 plt.plot(temp)
 plt.ylim(18, 23)
-plt.xlabel('time (sec)')
-plt.ylabel('temp (deg)')
+xlim = np.arange(0, 60*60*28, 60*60*4)
+plt.xticks(xlim, ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'])
+plt.xlabel('time')
+plt.ylabel('temp (deg C)')
 plt.show()
 
 plt.plot(heating)
+xlim = np.arange(0, 60*60*28, 60*60*4)
+plt.xticks(xlim, ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'])
+plt.xlabel('time (sec)')
+plt.ylabel('power (bool)')
 plt.show()
-

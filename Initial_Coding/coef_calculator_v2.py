@@ -28,7 +28,7 @@ def rescale_array(array, dt, data_array_x_vals):
 
 ##Setup
 #Import data
-data = pd.read_csv(r'data_exerpt_5.csv', header=None)
+data = pd.read_csv(r'Initial_Coding\data_exerpt_5.csv', header=None)
 nest_data_array = data.to_numpy()
 
 print(nest_data_array)
