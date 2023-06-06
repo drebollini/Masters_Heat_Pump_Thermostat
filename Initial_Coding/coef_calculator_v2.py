@@ -107,12 +107,16 @@ plt.plot(t_data, A_data)
 # plt.ylim(15, 25)
 xlim = np.arange(0, 60*60*28, 60*60*4)
 plt.xticks(xlim, ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'])
-plt.xlabel('time (sec)')
-plt.ylabel('temp (deg)')
+plt.title("Home Data vs. Predicted Data From Calculated Coefficients")
+plt.xlabel('Absolute Time')
+plt.ylabel('Temperature in °C')
 plt.show()
 
 plt.figure(figsize=(10,8))
 plt.plot(np.array(cost_history[50:]))
+plt.title("Mean Squared Error Per Iteration")
+plt.xlabel('Iters')
+plt.ylabel('Error')
 plt.show()
 
 import json
@@ -122,3 +126,4 @@ coef_str = json.dumps(themal_coefs)
 coef_file = open("thermal_coefs.json", "w")
 coef_file.write(coef_str)
 coef_file.close()
+
